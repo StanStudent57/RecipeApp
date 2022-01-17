@@ -1,18 +1,21 @@
 .App {
-  background-color: #424242;
-  padding-top: 50px;
+  /* background-color: #424242;
+  padding-top: 50px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-
+body {
+  background-image: url("/src/backgroundimage.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .information {
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
-
 }
 
 input {
@@ -21,16 +24,15 @@ input {
   font-size: 20px;
   padding-left: 10px;
   margin: 5px;
-
 }
 
- button {
+button {
   width: 320px;
   height: 50px;
   margin-top: 15px;
-} 
+}
 
- button:hover {
+button:hover {
   cursor: pointer;
 }
 
@@ -55,7 +57,7 @@ input {
 .RecipeForm textarea {
   width: 345px;
   min-height: 200px;
-  font-size: 24px;;
+  font-size: 24px;
 }
 
 .recipes {
@@ -72,7 +74,7 @@ input {
   margin: 10px;
   display: flex;
   padding: 10px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .recipe h3 {
