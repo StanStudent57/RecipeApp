@@ -31,11 +31,9 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flex: 1,
-    // backgroundColor: blue[600],
   },
   cardContentTitle: {
     flex: 1,
-    // backgroundColor: blue[400],
   },
   root: {
     marginBottom: "15px",
@@ -45,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    100: 56.25
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -74,8 +73,10 @@ const Recipe = ({ name, instructions, recipe, setRecipesList, recipesList }) => 
     setExpanded(!expanded);
   };
   const handleDelete = (id) => {
+    //this function runs when delete button is clicked
 
     axios.delete(`http://localhost:3001/delete/${id}`).then(d => {
+      // d is the response from the backend
       setRecipesList(recipesList.filter(function (item) {
         return item.id !== id
       }))
@@ -83,8 +84,12 @@ const Recipe = ({ name, instructions, recipe, setRecipesList, recipesList }) => 
 
   }
   const handleEditSave = async (id) => {
+    // this function runs when user clicks on save button after editing
     const ingredients = JSON.parse(recipe.ingredients)
+    //spreading the previous ingredients using the ... spread operator
     const newIngredients = [...ingredients, ingredient]
+    //using await keyword because its a network request
+
 
     const response = await axios.post(`http://localhost:3001/edit/${id}`, { name: editName, instructions: editInstructions, ingredients: newIngredients })
     setRecipesList(response.data.filter(function (item) {
@@ -164,14 +169,12 @@ const Recipe = ({ name, instructions, recipe, setRecipesList, recipesList }) => 
           )}
           <Typography paragraph>Ingredients:</Typography>
           <ul>
-            {/* {recipe.ingredients && recipe.ingredients.map(ing=><li key={ing}>{ing} </li>)} */}
             {recipe.ingredients && JSON.parse(recipe.ingredients).map(item => <li key={item} >{item}</li>)}
           </ul>
           <Typography paragraph>Instructions to prepare:</Typography>
           <Typography paragraph>
             {instructions}
           </Typography>
-
         </CardContent>
       </Collapse>
     </Card>

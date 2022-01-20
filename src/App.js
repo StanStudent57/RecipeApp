@@ -72,7 +72,7 @@ function App() {
       isGlutenFree: isGlutenFreeChecked
 
     }).then((res) => {
-      //Response from the node.js/express backend
+      //Response from the node.js/express backend in parameter
 
       setRecipesList(res.data.filter(function (item) { return item.name === name && item.instructions === instructions }))
       console.log("success");
@@ -200,6 +200,7 @@ function App() {
           InputProps={{ className: `${classes.root} ${classes.instructions}` }}
           className={classes.textfield}
           onKeyPress={e => {
+            //The character code for enter is 13 so I used this character code to decide which button was pressed
             if (e.charCode === 13) {
               addIngredients()
             };
@@ -209,10 +210,12 @@ function App() {
 
 
         <Button onClick={addIngredients} id="addIngredientsButton" style={{ backgroundColor: "#2196f3", borderRadius: 5, color: "white" }} color="primary" variant='contained' size="large">Add Ingredient </Button>
+        {/* if ingredients have a length greater than zero then we return this div */}
         {ingredients.length >= 1 && <div style={{ backgroundColor: "white", minHeight: 50, minWidth: 292, marginTop: 10, padding: 12 }}>
           <h3>Ingredients</h3>
 
           <ul>
+            {/* mapping over the ingredients array to display each ingredient */}
             {ingredients.map(ingredient => <li key={ingredient}>{ingredient} </li>)}
           </ul>
         </div>}
