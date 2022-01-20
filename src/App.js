@@ -10,7 +10,6 @@ import { SearchOutlined, FilterList as Filter } from "@material-ui/icons";
 import { InputBase, Tooltip } from "@material-ui/core"
 import { TextField } from '@material-ui/core';
 import { Grid } from "@material-ui/core";
-import { orange } from '@material-ui/core/colors';
 import axios from 'axios';
 
 const useStyles = makeStyles(theme =>
@@ -53,6 +52,10 @@ function App() {
   const [ingredients, setIngredients] = useState([]);
   const hideRecipes = function () {
     setRecipesList([])
+    setName("")
+    setInstructions("")
+    setIngredients([])
+    inputRef.current.value = ""
   }
   const addRecipe = function () {
     if (!name || !instructions || ingredients.length == 0) {
@@ -165,6 +168,7 @@ function App() {
 
         <label style={{ fontFamily: '"Lobster",cursive', fontSize: 30 }}>Recipe Name:</label>
         <TextField
+          id="recipeName"
           style={{ padding: 5, margin: 3 }}
           type="text"
           value={name}
@@ -177,7 +181,7 @@ function App() {
         />
         <label style={{ fontFamily: '"Lobster",cursive', fontSize: 30 }}>Recipe Instructions:</label>
         <TextField
-
+          id="recipeInstructions"
           type="text"
           InputProps={{ className: `${classes.root} ${classes.instructions}` }}
           className={classes.textfield}
@@ -189,6 +193,7 @@ function App() {
 
         <label style={{ fontFamily: '"Lobster",cursive', fontSize: 30 }}>Ingredients:</label>
         <TextField
+          id="recipeIngredients"
           inputRef={inputRef}
           style={{ marginBottom: 7 }}
           type="text"
@@ -203,7 +208,7 @@ function App() {
         />
 
 
-        <Button onClick={addIngredients} style={{ backgroundColor: "#2196f3", borderRadius: 5, color: "white" }} color="primary" variant='contained' size="large">Add Ingredient </Button>
+        <Button onClick={addIngredients} id="addIngredientsButton" style={{ backgroundColor: "#2196f3", borderRadius: 5, color: "white" }} color="primary" variant='contained' size="large">Add Ingredient </Button>
         {ingredients.length >= 1 && <div style={{ backgroundColor: "white", minHeight: 50, minWidth: 292, marginTop: 10, padding: 12 }}>
           <h3>Ingredients</h3>
 
@@ -211,9 +216,9 @@ function App() {
             {ingredients.map(ingredient => <li key={ingredient}>{ingredient} </li>)}
           </ul>
         </div>}
-        <FormControlLabel control={<Checkbox checked={isGlutenFreeChecked} onChange={e => setGlutenFree(e.target.checked)} />} label="Is Gluten Free?" />
-        <Button onClick={addRecipe} style={{ backgroundColor: "#2196f3", borderRadius: 5, marginBottom: 10, color: "white" }} color="primary" variant='contained' size="large">Add Recipe </Button>
-        <Button onClick={getRecipes} style={{ backgroundColor: "#33eb91", height: 40, borderRadius: 5, marginBottom: 10, color: "white" }} color="primary" variant='contained' size="large">Show All Recipes </Button>
+        <FormControlLabel control={<Checkbox checked={isGlutenFreeChecked} id="glutenFreeCheckbox" onChange={e => setGlutenFree(e.target.checked)} />} label="Is Gluten Free?" />
+        <Button onClick={addRecipe} id="addRecipeButton" style={{ backgroundColor: "#2196f3", borderRadius: 5, marginBottom: 10, color: "white" }} color="primary" variant='contained' size="large">Add Recipe </Button>
+        <Button id="showAllRecipesButton" onClick={getRecipes} style={{ backgroundColor: "#33eb91", height: 40, borderRadius: 5, marginBottom: 10, color: "white" }} color="primary" variant='contained' size="large">Show All Recipes </Button>
         <Button onClick={hideRecipes} style={{ backgroundColor: "#994477", height: 40, borderRadius: 5, color: "white" }} color="primary" variant='contained' size="large">Hide All Recipes </Button>
       </div>
       <Container maxWidth="xl">

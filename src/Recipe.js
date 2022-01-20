@@ -127,6 +127,7 @@ const Recipe = ({ name, instructions, recipe, setRecipesList, recipesList }) => 
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
+          id={`expand${recipe.name}`}
         >
           <ExpandMoreIcon />
         </IconButton>
@@ -134,15 +135,15 @@ const Recipe = ({ name, instructions, recipe, setRecipesList, recipesList }) => 
       <Collapse in={expanded} timeout="auto" unmountOnExit>
 
         <CardContent>
-          <IconButton onClick={handleEditClick} style={{ position: "absolute", top: 0, right: 50, width: "20%" }}>
+          <IconButton id={`editButton-${recipe.name}`} onClick={handleEditClick} style={{ position: "absolute", top: 0, right: 50, width: "20%" }}>
             <EditOutlined />
           </IconButton>
-          <IconButton onClick={() => handleDelete(recipe.id)} style={{ position: "absolute", top: 0, right: 0, width: "20%" }}>
+          <IconButton id={`deleteButton${recipe.name}`} onClick={() => handleDelete(recipe.id)} style={{ position: "absolute", top: 0, right: 0, width: "20%" }}>
             <DeleteOutlined />
           </IconButton>
           <div style={{
             backgroundColor: recipe.isGlutenFree ? "#22bb33" : "#f0ad4e",
-            color: "white", padding: 20
+            color: "white", padding: 20, marginBottom: 10
           }}>
 
 
@@ -151,12 +152,12 @@ const Recipe = ({ name, instructions, recipe, setRecipesList, recipesList }) => 
           </div>
           {editState && (
             <>
-              <TextField value={editName} onChange={(event) => setEditName(event.target.value)} label="name" />
-              <TextField value={editInstructions} onChange={(event) => setEditInstructions(event.target.value)} label="instructions" />
+              <TextField value={editName} id={`editRecipeName${recipe.name}`} onChange={(event) => setEditName(event.target.value)} label="name" />
+              <TextField value={editInstructions} id={`editRecipeInstructions${recipe.name}`} onChange={(event) => setEditInstructions(event.target.value)} label="instructions" />
               <TextField label="Add Ingredients" value={ingredient} onChange={(e) => setIngredient(e.target.value)} />
               <div>
                 <Button onClick={() => setEditState(false)}>Close</Button>
-                <Button onClick={() => handleEditSave(recipe.id)} disabled={!editName && !editInstructions}> Save</Button>
+                <Button id={`saveEdit${recipe.name}`} onClick={() => handleEditSave(recipe.id)} disabled={!editName && !editInstructions}> Save</Button>
 
               </div>
             </>
